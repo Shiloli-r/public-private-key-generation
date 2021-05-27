@@ -61,6 +61,10 @@ def generateKeys():
     e = generate_e(N)
     print("e = ", e)
 
+    # getting the value of d
+    d = generate_d(e, phi_of_N, 100)
+    print("d = ", d)
+
 
 # Function to check Co-prime
 def are_co_prime(a, b):
@@ -93,6 +97,17 @@ def generate_e(N):
             co_primes.append(primes[i])
     print(co_primes, " ==> co-primes")
     return choice(co_primes)  # return a random co-prime
+
+
+def generate_d(e, phi_of_N, max):
+    i = 0
+    ds = []
+    while i < max:
+        i += 1
+        if (i * e) % phi_of_N == 1:
+            ds.append(i)
+    print("possible values of d =", ds)
+    return choice(ds)
 
 
 def main():
