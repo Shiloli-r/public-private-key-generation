@@ -42,7 +42,7 @@ def gen_primes():
 
 def generateKeys():
     primes = list(itertools.islice(gen_primes(), 10))
-    print(primes, len(primes))
+    print(primes, " ==> prime numbers")
 
     # getting two large prime numbers
     p = choice(primes[0:])
@@ -56,6 +56,43 @@ def generateKeys():
     # Getting the phi of N
     phi_of_N = (p-1) * (q-1)
     print("Phi of N = ", phi_of_N)
+
+    # getting the value of e
+    e = generate_e(N)
+    print("e = ", e)
+
+
+# Function to check Co-prime
+def are_co_prime(a, b):
+    hcf = 1
+
+    for i in range(1, a + 1):
+        if a % i == 0 and b % i == 0:
+            hcf = i
+
+    return hcf == 1
+
+
+def generate_e(N):
+    half_of_N = N // 2
+    primes = []
+    co_primes = []
+    print("Half of N = ", half_of_N)
+
+    # Getting prime numbers less than half of N
+    for num in range(0, half_of_N):
+        if num > 1:
+            for i in range(2, num):
+                if (num % i) == 0:
+                    break
+            else:
+                primes.append(num)
+    print(primes, " ==> prime numbers less than half of N")
+    for i in range(len(primes)):
+        if are_co_prime(N, primes[i]):
+            co_primes.append(primes[i])
+    print(co_primes, " ==> co-primes")
+    return choice(co_primes)  # return a random co-prime
 
 
 def main():
