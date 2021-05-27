@@ -41,12 +41,12 @@ def gen_primes():
 
 
 def generateKeys():
-    primes = list(itertools.islice(gen_primes(), 10))
+    primes = list(itertools.islice(gen_primes(), 20))
     print(primes, " ==> prime numbers")
 
     # getting two large prime numbers
-    p = choice(primes[0:])
-    q = choice(primes[0:])
+    p = choice(primes[5:])
+    q = choice(primes[5:])
     print("p = ", p, ", q = ", q)
 
     # the product of the two large prime numbers, i.e N
@@ -62,8 +62,10 @@ def generateKeys():
     print("e = ", e)
 
     # getting the value of d
-    d = generate_d(e, phi_of_N, 100)
+    d = generate_d(e, phi_of_N, 1000)
     print("d = ", d)
+
+    return [[e, N], [d, N]]
 
 
 # Function to check Co-prime
@@ -110,8 +112,28 @@ def generate_d(e, phi_of_N, max):
     return choice(ds)
 
 
+def encrypt(e_no, e, N):
+    return (e_no ** e) % N
+
+
+def decrypt(d_no, d, N):
+    return(d_no ** d) % N
+
+
 def main():
-    generateKeys()
+    keys = generateKeys()
+    publicKey = keys[0]
+    privateKey = keys[1]
+    print("PublicKey = ", publicKey)
+    print("PrivateKey = ", privateKey)
+
+    text = int(input("\n Enter a number that represents a letter e.g. 1 for A, 2 for B, etc: "))
+
+    cipher = encrypt(text, publicKey[0], publicKey[1])
+    print(text, " Encrypted to ", cipher)
+
+    d = decrypt(cipher, privateKey[0], privateKey[1])
+    print(cipher, "Decrypted to ", d)
 
 
 if __name__ == '__main__':
