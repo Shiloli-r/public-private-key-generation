@@ -1,4 +1,5 @@
 import itertools
+from random import choice
 
 
 def gen_primes():
@@ -39,9 +40,26 @@ def gen_primes():
         q += 1
 
 
-def main():
-    primes = list(itertools.islice(gen_primes(), 120))
+def generateKeys():
+    primes = list(itertools.islice(gen_primes(), 10))
     print(primes, len(primes))
+
+    # getting two large prime numbers
+    p = choice(primes[0:])
+    q = choice(primes[0:])
+    print("p = ", p, ", q = ", q)
+
+    # the product of the two large prime numbers, i.e N
+    N = p * q
+    print("N = ", N)
+
+    # Getting the phi of N
+    phi_of_N = (p-1) * (q-1)
+    print("Phi of N = ", phi_of_N)
+
+
+def main():
+    generateKeys()
 
 
 if __name__ == '__main__':
